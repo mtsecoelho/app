@@ -1,0 +1,4 @@
+{
+    "http.proxy": "http://desenvolvimento:detran99@172.25.136.131:8080",
+    "http.proxySupport": "on"
+}
