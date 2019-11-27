@@ -8,6 +8,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from '../AxiosConfig';
+import { cpfMask, dateMask } from './masks';
 
 const sha1 = require("sha1");
 
@@ -53,7 +54,7 @@ class Usuario extends Component {
 
     selectUsuario = usuario => {
         this.setState({
-            usuario
+            usuario: usuario ? usuario : initialUsuario
         })
     }
 
@@ -85,33 +86,33 @@ class Usuario extends Component {
                 </Card.Header>
 
                 <Card.Body>
-                    <Form>
+                    <Form onSubmit={e => {e.preventDefault(); this.save()}}>
                         <Form.Row>
                             <Form.Group as={Col}>
                                 <Form.Label>Nome</Form.Label>
-                                <Form.Control autoFocus type="text" value={this.state.usuario.name || ""} onChange={e => this.setState({usuario: {...this.state.usuario, name: e.target.value}})}/>
+                                <Form.Control autoFocus type="text" value={this.state.usuario.name} onChange={e => this.setState({usuario: {...this.state.usuario, name: e.target.value}})}/>
                             </Form.Group>
                             <Form.Group as={Col}>
                                 <Form.Label>Data de Nascimento</Form.Label>
-                                <Form.Control type="text" value={this.state.usuario.birthDate|| ""} onChange={e => this.setState({usuario: {...this.state.usuario, birthDate: e.target.value}})}/>
+                                <Form.Control type="text" value={this.state.usuario.birthDate} onChange={e => this.setState({usuario: {...this.state.usuario, birthDate: dateMask(e.target.value)}})}/>
                             </Form.Group>
                             <Form.Group as={Col}>
                                 <Form.Label>Endereço</Form.Label>
-                                <Form.Control type="text" value={this.state.usuario.address || ""} onChange={e => this.setState({usuario: {...this.state.usuario, address: e.target.value}})}/>
+                                <Form.Control type="text" value={this.state.usuario.address} onChange={e => this.setState({usuario: {...this.state.usuario, address: e.target.value}})}/>
                             </Form.Group>
                             <Form.Group as={Col}>
                                 <Form.Label>CPF</Form.Label>
-                                <Form.Control type="text" value={this.state.usuario.cpf || ""} onChange={e => this.setState({usuario: {...this.state.usuario, cpf: e.target.value}})}/>
+                                <Form.Control type="text" value={this.state.usuario.cpf} onChange={e => this.setState({usuario: {...this.state.usuario, cpf: cpfMask(e.target.value)}})}/>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col}>
                                 <Form.Label>Username</Form.Label>
-                                <Form.Control type="text" value={this.state.usuario.username || ""} onChange={e => this.setState({usuario: {...this.state.usuario, username: e.target.value}})}/>
+                                <Form.Control type="text" value={this.state.usuario.username} onChange={e => this.setState({usuario: {...this.state.usuario, username: e.target.value}})}/>
                             </Form.Group>
                             <Form.Group as={Col}>
                                 <Form.Label>Senha</Form.Label>
-                                <Form.Control type="password" value={this.state.usuario.password || ""} onChange={e => this.setState({usuario: {...this.state.usuario, password: e.target.value}})}/>
+                                <Form.Control type="password" value={this.state.usuario.password} onChange={e => this.setState({usuario: {...this.state.usuario, password: e.target.value}})}/>
                             </Form.Group>
                             <Form.Group as={Col}>
                                 <Form.Label>Ativo</Form.Label>
