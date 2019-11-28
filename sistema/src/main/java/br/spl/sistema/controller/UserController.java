@@ -44,7 +44,10 @@ public class UserController {
 		
 		Pageable pageable = PageRequest.of(filter.getPage(), filter.getSize(), filter.getDirection(), filter.getProperty());
 		
-		return new ResponseModel(userRepository.findAll(pageable), HttpStatus.OK.value(), Arrays.asList("Usuário salvo com sucesso"));
+		if (filter.getProperty().equals("name"))	 return new ResponseModel(userRepository.findByNameContainingIgnoreCase(filter.getValue(), pageable), HttpStatus.OK.value(), null);
+		if (filter.getProperty().equals("username")) return new ResponseModel(userRepository.findByUsernameContainingIgnoreCase(filter.getValue(), pageable), HttpStatus.OK.value(), null);
+		
+		return new ResponseModel(userRepository.findAll(pageable), HttpStatus.OK.value(), null);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "save")
