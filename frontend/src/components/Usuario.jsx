@@ -45,7 +45,7 @@ class Usuario extends Component {
                 this.setState({
                     usuario: initialUsuario
                 })
-                alert(res.data)
+                window.al(res.data)
             }).catch(errs => {
                 window.al(errs);
             })

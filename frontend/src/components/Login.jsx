@@ -40,7 +40,7 @@ class Login extends Component {
                     if (res.data.status === 200) {
                         this.props.logIn(this.state.username);
                     } else {
-                        alert(res.data.message);
+                        window.al(res.data.message);
                     }
                 })
                 .catch(errs => {
