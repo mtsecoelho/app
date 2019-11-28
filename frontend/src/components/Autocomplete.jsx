@@ -3,6 +3,7 @@ import axios from '../AxiosConfig';
 import debounce from 'debounce';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
+import Form from 'react-bootstrap/Form';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -26,7 +27,7 @@ class Autocomplete extends Component {
         this.setState({
             data: this.props.data || [],
             placeholder: this.props.properties[0][2] || "",
-            className: `autocomplete-${new Date().getTime()}`,
+            className: `autocomplete-${new Date().getTime()} ${this.props.className}`,
             search: {
                 page: 0, 
                 size: this.props.size || 10, 
@@ -76,7 +77,7 @@ class Autocomplete extends Component {
     setValue = e => {
         this.setState({
             search: {...this.state.search, value: e.target.value}
-        }, () => this.getDataDebounced())
+        }) //, () => this.getDataDebounced()
     }
 
     prependClick = i => {
@@ -103,20 +104,18 @@ class Autocomplete extends Component {
     }
 
     getSelection = () => {
-        if (this.state.data.length > 0) {
-            return (
-                <Dropdown alignRight={false} drop="down" show >
-                    <Dropdown.Toggle variant="success"></Dropdown.Toggle>
-                    <Dropdown.Menu tabIndex="1">
-                        {
-                            this.state.data.map((e,i) => {
-                                return <Dropdown.Item className={this.state.className} onClick={() => this.selectClick(e)} key={i}>{this.getLine(e,"S")}</Dropdown.Item>
-                            })
-                        }
-                    </Dropdown.Menu>
-                </Dropdown>
-            )
-        }
+        return (
+            <DropdownButton onClick={() => this.getData()} as={InputGroup.Append} drop={this.props.dropdownDirection || "left"} variant="outline-secondary" title={<FontAwesomeIcon icon="filter"/>}>
+            {
+                this.state.data.length > 0 ?
+                this.state.data.map((e,i) => {
+                    return <Dropdown.Item className={this.state.className} onClick={() => this.selectClick(e)} key={i}>{this.getLine(e,"S")}</Dropdown.Item>
+                })
+                :
+                <Dropdown.Item className={this.state.className}>Nenhum registro localizado</Dropdown.Item>
+            }
+            </DropdownButton>
+        )
     }
 
     getLine = (el,t) => {
@@ -158,17 +157,17 @@ class Autocomplete extends Component {
     render() {
         return (
             this.state ?
-            <div>
+            <Form.Group>
                 <InputGroup className={this.state.className} >
                     { this.getMenu() }
-                    { this.getSelection() }
                     <FormControl
                         className={this.state.className}
                         placeholder={this.state.placeholder} 
                         value={this.state.search.value}
                         onChange={this.setValue} />
+                    { this.getSelection() }
                 </InputGroup>                
-            </div>
+            </Form.Group>
             :
             (null)
         )

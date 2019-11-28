@@ -63,18 +63,19 @@ class Usuario extends Component {
 <           Card>
                 <Card.Header>
                     <Row>
-                        <Col>
-                            <h3 className="float-left">Usuario</h3>
+                        <Col xs="12" sm="4">
+                            <h3 className="text-xs-center text-sm-left">Usuario</h3>
                         </Col>
-                        <Col>
+                        <Col xs="12" sm="4">
                             <Autocomplete
                                 origin="api/user/list" 
                                 properties={[["name","name","Nome do Usuario",true,true],["username","username","Login do Usuario",true,true]]}
                                 callback={this.selectUsuario} 
+                                className={"text-center"}
                             />
                         </Col>
-                        <Col>
-                            <div className="float-right">
+                        <Col xs="12" sm="4">
+                            <div className="text-xs-center text-sm-right">
                                 <ButtonGroup>
                                     <Button variant="danger" onClick={this.delete}><FontAwesomeIcon icon="trash-alt" /></Button>
                                     <Button variant="primary" onClick={this.new}><FontAwesomeIcon icon="plus" /></Button>
@@ -88,39 +89,54 @@ class Usuario extends Component {
                 <Card.Body>
                     <Form onSubmit={e => {e.preventDefault(); this.save()}}>
                         <Form.Row>
-                            <Form.Group as={Col}>
-                                <Form.Label>Nome</Form.Label>
-                                <Form.Control autoFocus type="text" value={this.state.usuario.name} onChange={e => this.setState({usuario: {...this.state.usuario, name: e.target.value}})}/>
-                            </Form.Group>
-                            <Form.Group as={Col}>
-                                <Form.Label>Data de Nascimento</Form.Label>
-                                <Form.Control type="text" value={this.state.usuario.birthDate} onChange={e => this.setState({usuario: {...this.state.usuario, birthDate: dateMask(e.target.value)}})}/>
-                            </Form.Group>
-                            <Form.Group as={Col}>
-                                <Form.Label>Endereço</Form.Label>
-                                <Form.Control type="text" value={this.state.usuario.address} onChange={e => this.setState({usuario: {...this.state.usuario, address: e.target.value}})}/>
-                            </Form.Group>
-                            <Form.Group as={Col}>
-                                <Form.Label>CPF</Form.Label>
-                                <Form.Control type="text" value={this.state.usuario.cpf} onChange={e => this.setState({usuario: {...this.state.usuario, cpf: cpfMask(e.target.value)}})}/>
-                            </Form.Group>
+                            <Col xs="12" sm="3">
+                                <Form.Group>
+                                    <Form.Label>Nome</Form.Label>
+                                    <Form.Control autoFocus type="text" value={this.state.usuario.name} onChange={e => this.setState({usuario: {...this.state.usuario, name: e.target.value}})}/>
+                                </Form.Group>
+                            </Col>
+                            <Col xs="12" sm="3">
+                                <Form.Group>
+                                    <Form.Label>Endereço</Form.Label>
+                                    <Form.Control type="text" value={this.state.usuario.address} onChange={e => this.setState({usuario: {...this.state.usuario, address: e.target.value}})}/>
+                                </Form.Group>
+                            </Col>
+                            <Col xs="12" sm="3">
+                                <Form.Group>
+                                    <Form.Label>CPF</Form.Label>
+                                    <Form.Control type="text" value={this.state.usuario.cpf} onChange={e => this.setState({usuario: {...this.state.usuario, cpf: cpfMask(e.target.value)}})}/>
+                                </Form.Group>
+                            </Col>
+                            <Col xs="12" sm="3">
+                                <Form.Group>
+                                    <Form.Label>Data de Nascimento</Form.Label>
+                                    <Form.Control type="text" value={this.state.usuario.birthDate} onChange={e => this.setState({usuario: {...this.state.usuario, birthDate: dateMask(e.target.value)}})}/>
+                                </Form.Group>
+                            </Col>
                         </Form.Row>
+                        
                         <Form.Row>
-                            <Form.Group as={Col}>
-                                <Form.Label>Username</Form.Label>
-                                <Form.Control type="text" value={this.state.usuario.username} onChange={e => this.setState({usuario: {...this.state.usuario, username: e.target.value}})}/>
-                            </Form.Group>
-                            <Form.Group as={Col}>
-                                <Form.Label>Senha</Form.Label>
-                                <Form.Control type="password" value={this.state.usuario.password} onChange={e => this.setState({usuario: {...this.state.usuario, password: e.target.value}})}/>
-                            </Form.Group>
-                            <Form.Group as={Col}>
-                                <Form.Label>Ativo</Form.Label>
-                                <Form.Control as="select" value={this.state.usuario.active} onChange={e => this.setState({usuario: {...this.state.usuario, active: e.target.value}})} >
-                                    <option value="Active">Ativo</option>
-                                    <option value="Inactive">Inativo</option>
-                                </Form.Control>
-                            </Form.Group>
+                            <Col xs="12" sm="4">
+                                <Form.Group>
+                                    <Form.Label>Username</Form.Label>
+                                    <Form.Control type="text" value={this.state.usuario.username} onChange={e => this.setState({usuario: {...this.state.usuario, username: e.target.value}})}/>
+                                </Form.Group>
+                            </Col>
+                            <Col xs="12" sm="4">
+                                <Form.Group>
+                                    <Form.Label>Senha</Form.Label>
+                                    <Form.Control type="password" value={this.state.usuario.password} onChange={e => this.setState({usuario: {...this.state.usuario, password: e.target.value}})}/>
+                                </Form.Group>
+                            </Col>
+                            <Col xs="12" sm="4">
+                                <Form.Group>
+                                    <Form.Label>Ativo</Form.Label>
+                                    <Form.Control as="select" value={this.state.usuario.active} onChange={e => this.setState({usuario: {...this.state.usuario, active: e.target.value}})} >
+                                        <option value="true">Ativo</option>
+                                        <option value="false">Inativo</option>
+                                    </Form.Control>
+                                </Form.Group>
+                            </Col>
                         </Form.Row>
                         <input type="submit" hidden />
                     </Form>
