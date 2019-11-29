@@ -8,11 +8,11 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from '../AxiosConfig';
-import { cpfMask, dateMask } from './masks';
+import { cpfMask, dateMask, celphoneMask, telephoneMask } from './masks';
 
 const sha1 = require("sha1");
 
-const initialUsuario = { id: "" , address: "", active: "Inactive", birthDate: "", name: "", password: "", username: "", cpf: ""}
+const initialUsuario = { id: "" , address: "", active: "true", birthDate: "", name: "", password: "", username: "", cpf: "", celphone: "", telephone: "", email: ""}
 
 class Usuario extends Component {
     constructor(props) {
@@ -31,8 +31,9 @@ class Usuario extends Component {
 
     save = () => {
         if(window.confirm("Salvar Usuario?")) {
-            axios.post("api/user/save", {...this.state.usuario, password: this.state.usuario.password.length === 40 ? this.state.usuario.password : sha1(this.state.usuario.password)}).then(() => {
-                alert("Usuário Salvo")
+            axios.post("api/user/save", {...this.state.usuario, password: this.state.usuario.password.length === 40 ? this.state.usuario.password : sha1(this.state.usuario.password)}).then(response => {
+                window.al(response.data.message)
+                if (response.data.status === 200) this.setState({usuario: initialUsuario}) 
             }).catch(errs => {
                 window.al(errs);
             })
@@ -53,6 +54,7 @@ class Usuario extends Component {
     }
 
     selectUsuario = usuario => {
+        console.log(usuario)
         this.setState({
             usuario: usuario ? usuario : initialUsuario
         })
@@ -92,7 +94,7 @@ class Usuario extends Component {
                             <Col xs="12" sm="3">
                                 <Form.Group>
                                     <Form.Label>Nome</Form.Label>
-                                    <Form.Control autoFocus type="text" value={this.state.usuario.name} onChange={e => this.setState({usuario: {...this.state.usuario, name: e.target.value}})}/>
+                                    <Form.Control autoFocus type="text" value={this.state.usuario.name || ""} onChange={e => this.setState({usuario: {...this.state.usuario, name: e.target.value}})}/>
                                 </Form.Group>
                             </Col>
                             <Col xs="12" sm="3">
@@ -138,9 +140,48 @@ class Usuario extends Component {
                                 </Form.Group>
                             </Col>
                         </Form.Row>
+
+                        <Form.Row>
+                            <Col xs="12" sm="4">
+                                <Form.Group>
+                                    <Form.Label>Celular</Form.Label>
+                                    <Form.Control type="tel" value={this.state.usuario.celphone || ""} onChange={e => this.setState({usuario: {...this.state.usuario, celphone: celphoneMask(e.target.value)}})}/>
+                                </Form.Group>
+                            </Col>
+                            <Col xs="12" sm="4">
+                                <Form.Group>
+                                    <Form.Label>Telefone</Form.Label>
+                                    <Form.Control type="tel" value={this.state.usuario.telephone || ""} onChange={e => this.setState({usuario: {...this.state.usuario, telephone: telephoneMask(e.target.value)}})}/>
+                                </Form.Group>
+                            </Col>
+                            <Col xs="12" sm="4">
+                                <Form.Group>
+                                    <Form.Label>Email</Form.Label>
+                                    <Form.Control type="email" value={this.state.usuario.email} onChange={e => this.setState({usuario: {...this.state.usuario, email: e.target.value}})}/>
+                                </Form.Group>
+                            </Col>
+                        </Form.Row>
                         <input type="submit" hidden />
                     </Form>
                 </Card.Body>
+
+                <Card.Footer>
+                    <Row>
+                        <Col xs="12" sm="4">
+                        </Col>
+                        <Col xs="12" sm="4">
+                        </Col>
+                        <Col xs="12" sm="4">
+                            <div className="text-xs-center text-sm-right">
+                                <ButtonGroup>
+                                    <Button variant="danger" onClick={this.delete}><FontAwesomeIcon icon="trash-alt" /></Button>
+                                    <Button variant="primary" onClick={this.new}><FontAwesomeIcon icon="plus" /></Button>
+                                    <Button variant="success" onClick={this.save}><FontAwesomeIcon icon="save" /></Button>
+                                </ButtonGroup>
+                            </div>
+                        </Col>
+                    </Row>
+                </Card.Footer>
             </Card>
         )
     }

@@ -27,6 +27,7 @@ import br.spl.sistema.utils.Authorized;
 import br.spl.sistema.utils.Authorizeds;
 import br.spl.sistema.utils.Errors;
 import br.spl.sistema.utils.GetCookie;
+import br.spl.sistema.utils.Validations;
 
 @RestController
 @RequestMapping("/api/user")
@@ -56,6 +57,8 @@ public class UserController {
 		
 		User u = null;
 		
+		if (!Validations.isCPF(user.getCpf())) return new ResponseModel(null, HttpStatus.BAD_REQUEST.value(), Arrays.asList("CPF inválido"));
+		
 		if (user.getUserId() == null) {
 			u = userRepository.findByCpf(user.getCpf());
 			if (u != null) return new ResponseModel(null, HttpStatus.BAD_REQUEST.value(), Arrays.asList("CPF em uso"));
@@ -65,8 +68,6 @@ public class UserController {
 		}
 				
 		try {
-			user.setPassword(DigestUtils.sha1Hex(user.getPassword()));
-			
 			u = userRepository.save(user);
 		} catch (Exception e) { 
 			return new ResponseModel(null, HttpStatus.INTERNAL_SERVER_ERROR.value(), Arrays.asList(e.getMessage()));

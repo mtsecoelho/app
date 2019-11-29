@@ -49,6 +49,7 @@ public class FilterSecurity extends HttpFilter {
 		
 		freeUris = new HashSet<String>();
 		freeUris.add("/sistema/api/user/login");
+		freeUris.add("/sistema/api/user/logout");
 		
 		super.init();
 	}
