@@ -14,7 +14,7 @@ import { Route } from "react-router-dom";
 import Login from './Login';
 import Usuario from "./Usuario";
 
-class MyNavbar extends Component {
+class Home extends Component {
     constructor(props) {
         super(props)
 
@@ -102,4 +102,4 @@ const mapStateToProps = store => ({
   user: store.user
 })
 
-export default connect(mapStateToProps, {logIn, logOut})(MyNavbar);
+export default connect(mapStateToProps, {logIn, logOut})(Home);

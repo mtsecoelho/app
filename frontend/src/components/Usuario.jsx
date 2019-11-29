@@ -64,12 +64,12 @@ class Usuario extends Component {
                 <Card.Header>
                     <Row>
                         <Col xs="12" sm="4">
-                            <h3 className="text-xs-center text-sm-left">Usuario</h3>
+                            <h3 className="text-xs-center text-sm-left">Usuário</h3>
                         </Col>
                         <Col xs="12" sm="4">
                             <Autocomplete
                                 origin="api/user/list" 
-                                properties={[["name","name","Nome do Usuario",true,true],["username","username","Login do Usuario",true,true]]}
+                                properties={[["name","name","Nome do Usuario",true,true],["username","username","Login do Usuario",false,true]]}
                                 callback={this.selectUsuario} 
                                 className={"text-center"}
                             />

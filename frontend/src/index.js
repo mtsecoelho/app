@@ -8,21 +8,21 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { reducer } from './reducers/reducer';
-import MyNavbar from './components/MyNavbar';
+import Home from './components/Home';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faTrashAlt, faSave, faPlus,faCarAlt, faSignOutAlt, faPencilAlt, faAngleLeft, faAngleDoubleLeft, faAngleDoubleRight, faAngleRight, faFilter } from '@fortawesome/free-solid-svg-icons'
+import { faTrashAlt, faSave, faPlus,faCarAlt, faSignOutAlt, faPencilAlt, faAngleLeft, faAngleDoubleLeft, faAngleDoubleRight, faAngleRight, faFilter, faSearch } from '@fortawesome/free-solid-svg-icons'
 import './App.css';
 
 const store = createStore(reducer);
 
-library.add(faTrashAlt, faSave, faPlus,faCarAlt, faSignOutAlt, faPencilAlt, faAngleLeft, faAngleDoubleLeft, faAngleDoubleRight, faAngleRight, faFilter)
+library.add(faTrashAlt, faSave, faPlus,faCarAlt, faSignOutAlt, faPencilAlt, faAngleLeft, faAngleDoubleLeft, faAngleDoubleRight, faAngleRight, faFilter, faSearch)
 
 
 ReactDOM.render(
     <Provider store={store}>
         <Router basename="/app">
-            <MyNavbar />
+            <Home />
         </Router>
     </Provider>, 
     document.getElementById('root')

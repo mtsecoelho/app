@@ -7,6 +7,7 @@ import Form from 'react-bootstrap/Form';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Button from 'react-bootstrap/Button';
 
 /*
 Parametros ->
@@ -105,16 +106,16 @@ class Autocomplete extends Component {
 
     getSelection = () => {
         return (
-            <DropdownButton onClick={() => this.getData()} as={InputGroup.Append} drop={this.props.dropdownDirection || "left"} variant="outline-secondary" title={<FontAwesomeIcon icon="filter"/>}>
+            this.state.data.length > 0 ?
+            <DropdownButton alignRight show as={InputGroup.Append} drop={this.props.dropdownDirection || "down"} variant="outline-secondary" title={<FontAwesomeIcon icon="search"/>}>
             {
-                this.state.data.length > 0 ?
                 this.state.data.map((e,i) => {
                     return <Dropdown.Item className={this.state.className} onClick={() => this.selectClick(e)} key={i}>{this.getLine(e,"S")}</Dropdown.Item>
                 })
-                :
-                <Dropdown.Item className={this.state.className}>Nenhum registro localizado</Dropdown.Item>
             }
             </DropdownButton>
+            :
+            <InputGroup.Append><Button variant="outline-secondary" onClick={() => this.getData()} ><FontAwesomeIcon icon="search"/></Button></InputGroup.Append>
         )
     }
 
