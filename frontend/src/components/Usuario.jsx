@@ -71,7 +71,7 @@ class Usuario extends Component {
                                 origin="api/user/list" 
                                 properties={[["name","name","Nome do Usuario",true,true],["username","username","Login do Usuario",false,true]]}
                                 callback={this.selectUsuario} 
-                                className={"text-center"}
+                                className={"text-left"}
                             />
                         </Col>
                         <Col xs="12" sm="4">
