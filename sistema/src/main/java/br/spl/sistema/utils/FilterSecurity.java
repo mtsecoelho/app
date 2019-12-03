@@ -36,10 +36,14 @@ public class FilterSecurity extends HttpFilter {
 		
 		if ("OPTIONS".equals(request.getMethod())) {
 			response.setStatus(HttpServletResponse.SC_OK);
-		} else if (this.validRequest(GetCookie.getCookieByName(request.getCookies(), "api-token"), request.getRemoteAddr(), request.getRequestURI())) {
-			super.doFilter(request, response, chain);
 		} else {
-			response.sendError(403);
+			int code = this.validRequest(GetCookie.getCookieByName(request.getCookies(), "api-token"), request.getRemoteAddr(), request.getRequestURI());
+			
+			if (code == 200) {
+				super.doFilter(request, response, chain);
+			} else {
+				response.sendError(code);
+			}
 		}
 	}
 
@@ -54,20 +58,22 @@ public class FilterSecurity extends HttpFilter {
 		super.init();
 	}
 	
-	private Boolean validRequest(Cookie token, String origin, String uri) {
-		if (freeUris.contains(uri)) return true;
+	private int validRequest(Cookie token, String origin, String uri) {
+		if (freeUris.contains(uri)) return 200;
 		
-		if (token == null) return false;
+		if (token == null) return 403;
 		
 		Authorized au = authorizeds.getAuthorizeds().get(token.getValue());
 		
-		if (au == null) return false;
+		if (au == null) return 403;
 		
 		au.setLastRequest(new Date());
 				
-		if (au.getOrigin().equals(origin) && au.getUser().getProfiles().stream().filter( item -> item.getUris().stream().filter( u -> uri.matches(u.getUri()) ).findFirst().isPresent() ).findFirst().isPresent()) return true;
+		if (au.getOrigin().equals(origin) && au.getUser().getProfiles().stream().filter( item -> item.getUris().stream().filter( u -> uri.matches(u.getUri()) ).findFirst().isPresent() ).findFirst().isPresent()) return 200;
+			
+		//futuramente criar um cache aqui...
 		
-		return false;
+		return 401;
 	}
 	
 }

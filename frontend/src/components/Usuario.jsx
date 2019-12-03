@@ -54,7 +54,6 @@ class Usuario extends Component {
     }
 
     selectUsuario = usuario => {
-        console.log(usuario)
         this.setState({
             usuario: usuario ? usuario : initialUsuario
         })

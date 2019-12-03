@@ -52,23 +52,15 @@ class Autocomplete extends Component {
     }
 
     getData = () => {
-        if (this.state.search.value) {
-            axios.post(this.props.origin, this.state.search).then(response => {
-                document.addEventListener('mousedown', this.handleClick, false)
-
-                this.setState({
-                    data: response.data.data.content
-                })
-            }).catch(errs => {
-                window.al(errs)
-            });
-        } else {
-            if(this.props.callback) this.props.callback(null)
+        axios.post(this.props.origin, this.state.search).then(response => {
+            document.addEventListener('mousedown', this.handleClick, false)
 
             this.setState({
-                data: []
+                data: response.data.data.content
             })
-        }
+        }).catch(errs => {
+            window.al(errs)
+        });
     }
 
     getDataDebounced = () => {

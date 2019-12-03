@@ -24,8 +24,11 @@ class Home extends Component {
                 if (!error.response) {
                     return Promise.reject("Servidor desconectado!")
                 } else if (error.response.data.status === 403) {
-                    return Promise.reject("Permissão negada!");
-                } 
+                    this.props.logOut();
+                    return Promise.reject("Acesso negado!");
+                } else if (error.response.data.status === 401) {
+                    return Promise.reject("Acesso não autorizado!");
+                }
                 
                 return Promise.reject(error.response.data)
             }
@@ -60,6 +63,7 @@ class Home extends Component {
     }
 
     render() {
+        console.log(this.props.user.data)
         return (
             <div className="App">
             {this.props.user.isLoggedIn ?
@@ -79,7 +83,7 @@ class Home extends Component {
                             </Nav>
 
                             <Nav>
-                                <NavDropdown title={this.props.user.username} alignRight>
+                                <NavDropdown title={this.props.user.data.username} alignRight>
                                     <NavDropdown.Item onClick={this.logout}><FontAwesomeIcon icon="sign-out-alt"/>Logout</NavDropdown.Item>
                                 </NavDropdown>
                             </Nav>

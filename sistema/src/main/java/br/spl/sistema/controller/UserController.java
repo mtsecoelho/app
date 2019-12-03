@@ -94,7 +94,7 @@ public class UserController {
 		
 		response.addCookie(tokenCookie);
 		
-		return new ResponseModel(null, HttpStatus.OK.value(), Arrays.asList("Login efetuado"));
+		return new ResponseModel(u, HttpStatus.OK.value(), Arrays.asList("Login efetuado"));
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "logout")
@@ -111,7 +111,7 @@ public class UserController {
 		String token = GetCookie.getCookieByName(request.getCookies(), "api-token").getValue();
 		Authorized au = authorizeds.getAuthorizeds().get(token);
 		
-		if (au != null) return new ResponseModel(au.getUser().getUsername(), HttpStatus.OK.value(), Arrays.asList("Usuario logado"));
+		if (au != null) return new ResponseModel(au.getUser(), HttpStatus.OK.value(), Arrays.asList("Usuario logado"));
 		return new ResponseModel(null, HttpStatus.UNAUTHORIZED.value(), Arrays.asList("Usuario não está localizado"));
 	}
 }

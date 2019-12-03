@@ -32,5 +32,9 @@ public class Profile extends BaseEntity {
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "profiles_uris", joinColumns = { @JoinColumn(name="profile_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name="uri_id", nullable = false, updatable = false) })
 	private Set<Uri> uris;
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "profiles_forms", joinColumns = { @JoinColumn(name="profile_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name="form_id", nullable = false, updatable = false) })
+	private Set<Form> forms;
 
 }

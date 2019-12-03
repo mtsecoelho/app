@@ -38,7 +38,7 @@ class Login extends Component {
             axios.post(`api/user/login`, {...this.state, password: sha1(this.state.password)})
                 .then(res => {
                     if (res.data.status === 200) {
-                        this.props.logIn(this.state.username);
+                        this.props.logIn(res.data.data);
                     } else {
                         window.al(res.data.message);
                     }

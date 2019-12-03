@@ -1,8 +1,8 @@
 import { LOG_IN, LOG_OUT } from "./actionTypes";
 
-export const logIn = username => ({
+export const logIn = user => ({
     type: LOG_IN,
-    username: username
+    user: user
 })
 
 export const logOut = () => ({
