@@ -63,7 +63,6 @@ class Home extends Component {
     }
 
     render() {
-        console.log(this.props.user.data)
         return (
             <div className="App">
             {this.props.user.isLoggedIn ?
