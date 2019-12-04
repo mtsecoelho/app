@@ -2,6 +2,8 @@ package br.spl.sistema.controller;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.spl.sistema.model.Filter;
+import br.spl.sistema.model.Form;
+import br.spl.sistema.model.LoginModel;
+import br.spl.sistema.model.Profile;
 import br.spl.sistema.model.ResponseModel;
 import br.spl.sistema.model.User;
 import br.spl.sistema.repository.UserRepository;
@@ -94,7 +99,7 @@ public class UserController {
 		
 		response.addCookie(tokenCookie);
 		
-		return new ResponseModel(u, HttpStatus.OK.value(), Arrays.asList("Login efetuado"));
+		return new ResponseModel(this.getLoginModel(u), HttpStatus.OK.value(), Arrays.asList("Login efetuado"));
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "logout")
@@ -111,7 +116,27 @@ public class UserController {
 		String token = GetCookie.getCookieByName(request.getCookies(), "api-token").getValue();
 		Authorized au = authorizeds.getAuthorizeds().get(token);
 		
-		if (au != null) return new ResponseModel(au.getUser(), HttpStatus.OK.value(), Arrays.asList("Usuario logado"));
+		if (au != null) return new ResponseModel(this.getLoginModel(au.getUser()), HttpStatus.OK.value(), Arrays.asList("Usuario logado"));
 		return new ResponseModel(null, HttpStatus.UNAUTHORIZED.value(), Arrays.asList("Usuario não está localizado"));
+	}
+	
+	private LoginModel getLoginModel(User u) {
+		LoginModel lm = new LoginModel();
+		
+		lm.setUsername(u.getUsername());
+		lm.setForms(new HashSet<String>());
+		
+		Iterator<Profile> profilesIterator = u.getProfiles().iterator();
+		Iterator<Form> formsIterator;
+		
+		while (profilesIterator.hasNext()) {
+			formsIterator = profilesIterator.next().getForms().iterator();
+			
+			while (formsIterator.hasNext()) {
+				lm.getForms().add(formsIterator.next().getForm());
+			}
+		}
+		
+		return lm;
 	}
 }

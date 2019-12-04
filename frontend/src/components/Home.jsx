@@ -58,7 +58,9 @@ class Home extends Component {
   
     componentDidMount() {  
         axios.get("api/user/login",{}).then(response => {
-            if (response.data.status === 200) this.props.logIn(response.data.data)
+            if (response.data.status === 200) {
+                this.props.logIn(response.data.data)
+            }
         })
     }
 
@@ -75,11 +77,16 @@ class Home extends Component {
                         <Navbar.Toggle aria-controls="navbar-app" />
 
                         <Navbar.Collapse id="navbar-app">
-                            <Nav className="mr-auto">
-                                <LinkContainer to="/usuario">
-                                    <Nav.Link>Usuário</Nav.Link>
-                                </LinkContainer>
-                            </Nav>
+                            {
+                                this.props.user.data.usuario ?
+                                <Nav className="mr-auto">
+                                    <LinkContainer to="/usuario">
+                                        <Nav.Link>Usuário</Nav.Link>
+                                    </LinkContainer>
+                                </Nav>
+                                :
+                                (null)
+                            }
 
                             <Nav>
                                 <NavDropdown title={this.props.user.data.username} alignRight>
