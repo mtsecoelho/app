@@ -78,7 +78,7 @@ class Home extends Component {
 
                         <Navbar.Collapse id="navbar-app">
                             {
-                                this.props.user.data.usuario ?
+                                this.props.user.data.forms && this.props.user.data.forms.usuario ?
                                 <Nav className="mr-auto">
                                     <LinkContainer to="/usuario">
                                         <Nav.Link>Usuário</Nav.Link>
@@ -97,7 +97,7 @@ class Home extends Component {
                     </Navbar>
 
                     <Container fluid className="mt-3">
-                        <Route path="/usuario" component={Usuario} />
+                        <Route path="/usuario" render={(props) => this.props.user.data.forms && this.props.user.data.forms.usuario ? <Usuario {...props} permissions={this.props.user.data.forms.usuario} />  : "" } />
                     </Container>  
                 </div>
                 :

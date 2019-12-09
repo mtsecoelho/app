@@ -2,7 +2,7 @@ package br.spl.sistema.controller;
 
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import javax.servlet.http.Cookie;
@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.spl.sistema.model.Filter;
-import br.spl.sistema.model.Form;
 import br.spl.sistema.model.LoginModel;
 import br.spl.sistema.model.Profile;
 import br.spl.sistema.model.ResponseModel;
+import br.spl.sistema.model.Uri;
 import br.spl.sistema.model.User;
 import br.spl.sistema.repository.UserRepository;
 import br.spl.sistema.utils.Authorized;
@@ -124,16 +124,40 @@ public class UserController {
 		LoginModel lm = new LoginModel();
 		
 		lm.setUsername(u.getUsername());
-		lm.setForms(new HashSet<String>());
+		lm.setForms(new HashMap<String,String>());
 		
 		Iterator<Profile> profilesIterator = u.getProfiles().iterator();
-		Iterator<Form> formsIterator;
+		Iterator<Uri> urisIterator;
+		
+		Profile profile;
+		Uri uri;
+		String permission, form, sUri;
 		
 		while (profilesIterator.hasNext()) {
-			formsIterator = profilesIterator.next().getForms().iterator();
+			permission = ""; 
+			sUri = "";
 			
-			while (formsIterator.hasNext()) {
-				lm.getForms().add(formsIterator.next().getForm());
+			profile = profilesIterator.next();
+			
+			urisIterator = profile.getUris().iterator(); 
+			
+			while (urisIterator.hasNext()) {
+				uri = urisIterator.next();
+				form = uri.getForm();
+				sUri = uri.getUri();
+				
+				permission = lm.getForms().get(form);
+						
+				if (permission == null) permission = "";
+				if (sUri.contains("list") && !permission.contains("l")) permission += "l";
+				if (sUri.contains("save") && !permission.contains("s")) permission += "s";
+				if (sUri.contains("delete") && !permission.contains("d")) permission += "d";
+				
+				if (lm.getForms().containsKey(form)) {
+					lm.getForms().replace(form, permission);
+				} else {
+					lm.getForms().put(form, permission);
+				}
 			}
 		}
 		

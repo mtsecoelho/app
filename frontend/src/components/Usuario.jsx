@@ -17,7 +17,6 @@ const initialUsuario = { id: "" , address: "", active: "true", birthDate: "", na
 class Usuario extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             usuario: initialUsuario
         }
@@ -78,9 +77,9 @@ class Usuario extends Component {
                         <Col xs="12" sm="4">
                             <div className="text-xs-center text-sm-right">
                                 <ButtonGroup>
-                                    <Button variant="danger" onClick={this.delete}><FontAwesomeIcon icon="trash-alt" /></Button>
-                                    <Button variant="primary" onClick={this.new}><FontAwesomeIcon icon="plus" /></Button>
-                                    <Button variant="success" onClick={this.save}><FontAwesomeIcon icon="save" /></Button>
+                                    { this.props.permissions.includes("d") ? <Button variant="danger" onClick={this.delete}><FontAwesomeIcon icon="trash-alt" /></Button> : (null) }
+                                    { this.props.permissions.includes("s") ? <Button variant="primary" onClick={this.new}><FontAwesomeIcon icon="plus" /></Button> : (null) }
+                                    { this.props.permissions.includes("s") ? <Button variant="success" onClick={this.save}><FontAwesomeIcon icon="save" /></Button> : (null) }
                                 </ButtonGroup>
                             </div>
                         </Col>
@@ -173,9 +172,9 @@ class Usuario extends Component {
                         <Col xs="12" sm="4">
                             <div className="text-xs-center text-sm-right">
                                 <ButtonGroup>
-                                    <Button variant="danger" onClick={this.delete}><FontAwesomeIcon icon="trash-alt" /></Button>
-                                    <Button variant="primary" onClick={this.new}><FontAwesomeIcon icon="plus" /></Button>
-                                    <Button variant="success" onClick={this.save}><FontAwesomeIcon icon="save" /></Button>
+                                    { this.props.permissions.includes("d") ? <Button variant="danger" onClick={this.delete}><FontAwesomeIcon icon="trash-alt" /></Button> : (null) }
+                                    { this.props.permissions.includes("s") ? <Button variant="primary" onClick={this.new}><FontAwesomeIcon icon="plus" /></Button> : (null) }
+                                    { this.props.permissions.includes("s") ? <Button variant="success" onClick={this.save}><FontAwesomeIcon icon="save" /></Button> : (null) }
                                 </ButtonGroup>
                             </div>
                         </Col>

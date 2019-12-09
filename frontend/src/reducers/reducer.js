@@ -12,10 +12,6 @@ export const reducer = (state = initialState, action) => {
     case LOG_IN:
     let user = action.user;
     
-    user.forms.forEach(f => {
-      f = f.replace('/','');
-      user[f] = true;
-    })
     return {
         ...state,
         user: {...state.user, data: user, isLoggedIn: true}

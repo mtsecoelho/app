@@ -17,10 +17,14 @@ public class Uri extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer urlId;
+	private Integer uriId;
 	
 	@NotEmpty(message="URI obrigatória")
 	@Column(nullable = false)
 	private String uri;
+	
+	@NotEmpty(message="Formulario obrigatório")
+	@Column(nullable = false)
+	private String form;
 	
 }

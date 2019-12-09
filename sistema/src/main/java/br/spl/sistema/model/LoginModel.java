@@ -1,6 +1,6 @@
 package br.spl.sistema.model;
 
-import java.util.Set;
+import java.util.HashMap;
 
 import lombok.Data;
 import lombok.ToString;
@@ -10,6 +10,6 @@ import lombok.ToString;
 public class LoginModel {
 	
 	private String username;
-	private Set<String> forms;
+	private HashMap<String, String> forms;
 	
 }
