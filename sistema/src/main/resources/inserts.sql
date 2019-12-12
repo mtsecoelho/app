@@ -1,8 +1,8 @@
 select *
 from sistema.user;
 
-insert into sistema.user values(default,current_timestamp,current_timestamp,'Rua Capitão Clóvis Maia, 465','07/09/1990','(85) 99639-3216','045.926.863-57','emmanoelcoelholima@gmai.com','Matheus Emmanuel Coelho Alves','','mtsealves',true,'5491c11f9ee6ff22b260040f4f1b1a3442d127c4');
-insert into sistema.user values(default,current_timestamp,current_timestamp,'Rua Capitão Clóvis Maia, 465','21/04/1960','(85) 99999-1910','143.562.523-49','antoniolima@gmai.com','Antonio Lima Alves','','aalves',true,'5491c11f9ee6ff22b260040f4f1b1a3442d127c4');
+INSERT INTO sistema."user"(user_id, created_at, updated_at, address, birth_date, celphone,cpf, email, name, telephone, active, password, username) VALUES (default,current_timestamp,current_timestamp,'Rua Capitão Clóvis Maia, 465','07/09/1990','(85) 99639-3216','045.926.863-57','emmanoelcoelholima@gmai.com','Matheus Emmanuel Coelho Alves','',true,'5491c11f9ee6ff22b260040f4f1b1a3442d127c4','mtsealves');
+INSERT INTO sistema."user"(user_id, created_at, updated_at, address, birth_date, celphone,cpf, email, name, telephone, active, password, username) VALUES (default,current_timestamp,current_timestamp,'Rua Capitão Clóvis Maia, 465','21/04/1960','(85) 99999-1910','143.562.523-49','antoniolima@gmai.com','Antonio Lima Alves','',true,'5491c11f9ee6ff22b260040f4f1b1a3442d127c4','aalves');
 
 --update sistema.user set password = '5491c11f9ee6ff22b260040f4f1b1a3442d127c4'
 --update sistema.user set active = true
@@ -10,15 +10,19 @@ insert into sistema.user values(default,current_timestamp,current_timestamp,'Rua
 select *
 from sistema.profile;
 
-insert into sistema.profile values(default,current_timestamp,current_timestamp,'admin');
-insert into sistema.profile values(default,current_timestamp,current_timestamp,'user_ro');
+INSERT INTO sistema.profile(profile_id, created_at, updated_at, name) VALUES (default,current_timestamp,current_timestamp,'Admin');
+INSERT INTO sistema.profile(profile_id, created_at, updated_at, name) VALUES (default,current_timestamp,current_timestamp,'Professor');
+INSERT INTO sistema.profile(profile_id, created_at, updated_at, name) VALUES (default,current_timestamp,current_timestamp,'Aluno');
+INSERT INTO sistema.profile(profile_id, created_at, updated_at, name) VALUES (default,current_timestamp,current_timestamp,'Responsavel');
+INSERT INTO sistema.profile(profile_id, created_at, updated_at, name) VALUES (default,current_timestamp,current_timestamp,'Coordenador');
+INSERT INTO sistema.profile(profile_id, created_at, updated_at, name) VALUES (default,current_timestamp,current_timestamp,'Financeiro');
 
 select *
 from sistema.uri;
 
-insert into sistema.uri values (default,current_timestamp,current_timestamp, 'usuario', '^/sistema/api/user/list$');
-insert into sistema.uri values (default,current_timestamp,current_timestamp, 'usuario', '^/sistema/api/user/save$');
-insert into sistema.uri values (default,current_timestamp,current_timestamp, 'usuario', '^/sistema/api/user/delete$');
+INSERT INTO sistema.uri(uri_id, created_at, updated_at, form, uri) VALUES (default,current_timestamp,current_timestamp, 'usuario', '^/sistema/api/user/list$');
+INSERT INTO sistema.uri(uri_id, created_at, updated_at, form, uri) VALUES (default,current_timestamp,current_timestamp, 'usuario', '^/sistema/api/user/save$');
+INSERT INTO sistema.uri(uri_id, created_at, updated_at, form, uri) VALUES (default,current_timestamp,current_timestamp, 'usuario', '^/sistema/api/user/delete$');
 
 select * 
 from sistema.profiles_uris;

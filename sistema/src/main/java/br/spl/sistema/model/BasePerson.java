@@ -17,7 +17,7 @@ import lombok.EqualsAndHashCode;
 @MappedSuperclass
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class Person extends BaseEntity {
+public class BasePerson extends BaseEntity {
 	
 	@Column(nullable=false)
 	@NotNull(message="Data de nascimento é obrigatória")
@@ -28,10 +28,6 @@ public class Person extends BaseEntity {
 	@Column(nullable=false)
 	@NotEmpty(message="Endereço Obrigatório")
 	private String address;
-	
-	@Column(unique=true, nullable=false)
-	@NotEmpty(message="Username Obrigatório")
-	private String username;
 	
 	@Column(unique=true, nullable=false)
 	@NotEmpty(message="CPF Obrigatório")

@@ -19,11 +19,15 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class User extends Person {
+public class User extends BasePerson {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer userId;
+	
+	@Column(unique=true, nullable=false)
+	@NotEmpty(message="Username Obrigatório")
+	private String username;
 	
 	@NotEmpty(message="Senha Obrigatória")
 	@Column(nullable=false)

@@ -1,18 +1,19 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { LinkContainer } from "react-router-bootstrap";
-import Container from "react-bootstrap/Container";
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
-import NavDropdown from "react-bootstrap/NavDropdown";
+import { LinkContainer } from 'react-router-bootstrap';
+import Container from 'react-bootstrap/Container';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import { connect } from 'react-redux';
-import axios from "../AxiosConfig.js";
+import axios from '../AxiosConfig.js';
 import { read_cookie, delete_cookie } from 'sfcookies';
-import { logIn, logOut } from "../actions/index";
-import { Route } from "react-router-dom";
+import { logIn, logOut } from '../actions/index';
+import { Route } from 'react-router-dom';
 
 import Login from './Login';
-import Usuario from "./Usuario";
+import Usuario from './Usuario';
+import Blog from './Blog';
 
 class Home extends Component {
     constructor(props) {
@@ -97,6 +98,7 @@ class Home extends Component {
                     </Navbar>
 
                     <Container fluid className="mt-3">
+                        <Route exact path="/" component={Blog} />
                         <Route path="/usuario" render={(props) => this.props.user.data.forms && this.props.user.data.forms.usuario ? <Usuario {...props} permissions={this.props.user.data.forms.usuario} />  : "" } />
                     </Container>  
                 </div>

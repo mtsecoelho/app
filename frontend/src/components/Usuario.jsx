@@ -92,7 +92,7 @@ class Usuario extends Component {
                             <Col xs="12" sm="3">
                                 <Form.Group>
                                     <Form.Label>Nome</Form.Label>
-                                    <Form.Control autoFocus type="text" value={this.state.usuario.name || ""} onChange={e => this.setState({usuario: {...this.state.usuario, name: e.target.value}})}/>
+                                    <Form.Control autoFocus type="text" value={this.state.usuario.name} onChange={e => this.setState({usuario: {...this.state.usuario, name: e.target.value}})}/>
                                 </Form.Group>
                             </Col>
                             <Col xs="12" sm="3">
