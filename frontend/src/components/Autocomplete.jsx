@@ -46,7 +46,7 @@ class Autocomplete extends Component {
     componentDidUpdate(props) {
         if (props.value !== this.props.value) {
             this.setState({
-                search: {...this.state.search, value: props.value}
+                search: {...this.state.search, value: this.props.value}
             })
         }
     }
